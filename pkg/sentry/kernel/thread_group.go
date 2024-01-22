@@ -323,7 +323,7 @@ func (tg *ThreadGroup) Release(ctx context.Context) {
 	}
 	clear(tg.timers) // nil maps can't be saved
 	// Disassociate from the tty if we have one.
-	if tg.tty != nil {
+	if tg.tty != nil && tg.tty.tg == tg {
 		tg.tty.mu.Lock()
 		tg.tty.tg = nil
 		tg.tty.mu.Unlock()
